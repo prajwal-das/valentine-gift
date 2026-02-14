@@ -60,7 +60,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe sections for scroll animations
-document.querySelectorAll('.reason-card, .timeline-item, .photo-placeholder, .dream-card, .quote-card').forEach(el => {
+document.querySelectorAll('.reason-card, .timeline-item, .photo-placeholder, .photo-item, .dream-card, .quote-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

@@ -462,6 +462,22 @@ section h2 {
     transform: scale(1.05);
 }
 
+.photo-item {
+    aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    border: 3px solid #ffcce0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 20px rgba(214, 51, 132, 0.2);
+    cursor: pointer;
+}
+
+.photo-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.4);
+}
+
 /* Footer */
 footer {
     position: relative;
@@ -631,6 +647,10 @@ footer p {
         font-size: 1.1rem;
     }
 
+    .photo-item {
+        min-height: 250px;
+    }
+
     /* Countdown Timer - Mobile */
     .countdown-timer {
         font-size: 1rem;
@@ -753,6 +773,10 @@ footer p {
     }
 
     .photo-placeholder {
+        min-height: 200px;
+    }
+
+    .photo-item {
         min-height: 200px;
     }
 }
