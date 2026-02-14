@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="hearts-background"></div>
+    <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
     <header class="hero">
         <div class="container">
@@ -222,6 +223,14 @@
             <p>Happy Valentine's Day 2026</p>
         </div>
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img class="lightbox-image" id="lightboxImage" src="" alt="Photo">
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
