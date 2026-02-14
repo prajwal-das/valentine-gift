@@ -257,6 +257,174 @@ section h2 {
     color: #666;
 }
 
+/* Countdown Timer */
+.countdown-timer {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+}
+
+/* Quote Section */
+.quote-section {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.quote-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.2);
+    margin-bottom: 30px;
+    border: 2px solid #ffcce0;
+    position: relative;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+.quote-icon {
+    font-size: 4rem;
+    color: #ff6b9d;
+    opacity: 0.3;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-family: Georgia, serif;
+}
+
+.quote-text {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: #555;
+    line-height: 1.8;
+    margin-left: 40px;
+}
+
+/* Future Dreams */
+.future-dreams {
+    background: white;
+}
+
+.dreams-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.dream-card {
+    background: linear-gradient(135deg, #fff5f7 0%, #ffe6f0 100%);
+    padding: 35px 25px;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid #ffcce0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dream-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(214, 51, 132, 0.3);
+}
+
+.dream-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.dream-card h3 {
+    color: #d63384;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.dream-card p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Secret Message Section */
+.secret-message {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.message-reveal-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.reveal-button {
+    background: linear-gradient(135deg, #ff6b9d 0%, #c86dd7 100%);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4);
+    transition: all 0.3s ease;
+    animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gentle-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.reveal-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 30px rgba(214, 51, 132, 0.5);
+}
+
+.reveal-button:active {
+    transform: scale(1.05);
+}
+
+.hidden-message {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.8s ease, opacity 0.8s ease, margin-top 0.8s ease;
+    opacity: 0;
+    background: white;
+    border-radius: 20px;
+    padding: 0 40px;
+    border: 2px solid #ffcce0;
+}
+
+.hidden-message.revealed {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 30px;
+    padding: 40px;
+}
+
+.hidden-message p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #555;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.final-words {
+    font-size: 1.4rem !important;
+    color: #d63384 !important;
+    font-weight: bold;
+    text-align: center !important;
+    margin-top: 30px !important;
+}
+
 /* Gallery */
 .gallery {
     background: white;
@@ -461,6 +629,57 @@ footer p {
     .photo-placeholder {
         min-height: 250px;
         font-size: 1.1rem;
+    }
+
+    /* Countdown Timer - Mobile */
+    .countdown-timer {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+
+    /* Quote Section - Mobile */
+    .quote-card {
+        padding: 30px 20px;
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+        margin-left: 30px;
+    }
+
+    .quote-icon {
+        font-size: 3rem;
+    }
+
+    /* Dreams - Mobile */
+    .dreams-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dream-card {
+        padding: 25px 20px;
+    }
+
+    /* Secret Message - Mobile */
+    .reveal-button {
+        font-size: 1.1rem;
+        padding: 15px 30px;
+    }
+
+    .hidden-message {
+        padding: 0 20px;
+    }
+
+    .hidden-message.revealed {
+        padding: 30px 20px;
+    }
+
+    .hidden-message p {
+        font-size: 1.05rem;
+    }
+
+    .final-words {
+        font-size: 1.2rem !important;
     }
 
     /* Footer - Mobile */

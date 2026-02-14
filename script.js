@@ -60,9 +60,52 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe sections for scroll animations
-document.querySelectorAll('.reason-card, .timeline-item, .photo-placeholder').forEach(el => {
+document.querySelectorAll('.reason-card, .timeline-item, .photo-placeholder, .dream-card, .quote-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
+
+// Countdown Timer - Count up from first meeting
+const firstMeetingDate = new Date('2025-02-21T22:00:00'); // Feb 21, 2025, 10 PM
+
+function updateCountdown() {
+    const now = new Date();
+    const diff = now - firstMeetingDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const countdownElement = document.getElementById('countdownTimer');
+    if (countdownElement) {
+        countdownElement.textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds since we first met ❤️`;
+    }
+}
+
+// Update countdown every second
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Secret Message Reveal
+const revealBtn = document.getElementById('revealBtn');
+const hiddenMessage = document.getElementById('hiddenMessage');
+
+if (revealBtn && hiddenMessage) {
+    revealBtn.addEventListener('click', () => {
+        if (hiddenMessage.classList.contains('revealed')) {
+            hiddenMessage.classList.remove('revealed');
+            revealBtn.textContent = 'Click to reveal my secret message ❤️';
+        } else {
+            hiddenMessage.classList.add('revealed');
+            revealBtn.textContent = 'Hide message';
+
+            // Smooth scroll to the message
+            setTimeout(() => {
+                hiddenMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        }
+    });
+}
