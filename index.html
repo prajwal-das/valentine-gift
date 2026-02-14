@@ -106,21 +106,60 @@
         .btn-yes {
             background: linear-gradient(135deg, #ff6b9d 0%, #c86dd7 100%);
             color: white;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulse-grow 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes pulse {
+        .btn-yes::before {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: sparkle-left 2s ease-in-out infinite;
+        }
+
+        .btn-yes::after {
+            content: '✨';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: sparkle-right 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-grow {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes sparkle-left {
+            0%, 100% { left: -30px; opacity: 0; }
+            50% { left: 10px; opacity: 1; }
+        }
+
+        @keyframes sparkle-right {
+            0%, 100% { right: -30px; opacity: 0; }
+            50% { right: 10px; opacity: 1; }
         }
 
         .btn-yes:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.4);
+            transform: scale(1.2) rotate(5deg);
+            box-shadow: 0 12px 40px rgba(214, 51, 132, 0.6);
+            animation: wiggle 0.5s ease-in-out;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: scale(1.2) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(-5deg); }
+            75% { transform: scale(1.2) rotate(5deg); }
         }
 
         .btn-yes:active {
-            transform: scale(1.05);
+            transform: scale(1.15);
         }
 
         .btn-no {
@@ -132,6 +171,13 @@
 
         .btn-no:hover {
             background: #e0e0e0;
+            animation: shake 0.3s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .celebration {
@@ -295,6 +341,50 @@
 
         let noClickCount = 0;
 
+        // Add hearts on Yes button hover
+        yesBtn.addEventListener('mouseenter', () => {
+            createFloatingHeartsAroundButton(yesBtn);
+        });
+
+        function createFloatingHeartsAroundButton(button) {
+            const rect = button.getBoundingClientRect();
+            const hearts = ['💕', '💖', '💗', '💝', '❤️'];
+
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = rect.left + Math.random() * rect.width + 'px';
+                    heart.style.top = rect.top + rect.height / 2 + 'px';
+                    heart.style.fontSize = '1.5rem';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '10';
+                    heart.style.animation = 'float-up 1.5s ease-out forwards';
+
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 1500);
+                }, i * 100);
+            }
+        }
+
+        // Add float-up animation
+        const floatUpStyle = document.createElement('style');
+        floatUpStyle.textContent = `
+            @keyframes float-up {
+                0% {
+                    transform: translateY(0) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) scale(1.5);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(floatUpStyle);
+
         // Yes button - show celebration and redirect
         yesBtn.addEventListener('click', () => {
             celebration.classList.add('active');
@@ -351,14 +441,36 @@
             const newScale = Math.max(0.5, 1 - (noClickCount * 0.1));
             noBtn.style.transform = `scale(${newScale})`;
 
-            // Change text after a few attempts
-            if (noClickCount === 3) {
-                noBtn.textContent = 'Still No?';
-            } else if (noClickCount === 5) {
-                noBtn.textContent = 'Really?';
-            } else if (noClickCount === 7) {
-                noBtn.textContent = 'Please? 🥺';
+            // Grow the Yes button each time No is clicked
+            const yesScale = 1 + (noClickCount * 0.1);
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            // Add encouraging messages
+            const messages = [
+                'Come on... 💕',
+                'You know you want to! 😊',
+                'Still No? 🥺',
+                'Pretty please? 💝',
+                'Really? 😢',
+                'Just say yes! ✨',
+                'Please? 🥺',
+                'I\'m not giving up! 💪',
+                'Yes is right there! 👉',
+                'One more try? 🙏'
+            ];
+
+            // Change text after attempts
+            if (noClickCount <= messages.length) {
+                noBtn.textContent = messages[noClickCount - 1];
+            } else {
+                noBtn.textContent = 'Fine... 😔';
             }
+
+            // Add shake effect to Yes button to draw attention
+            yesBtn.style.animation = 'none';
+            setTimeout(() => {
+                yesBtn.style.animation = 'pulse-grow 2s ease-in-out infinite, wiggle 0.5s ease-in-out';
+            }, 10);
         }
 
         // Confetti function
