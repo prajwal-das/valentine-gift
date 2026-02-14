@@ -1,10 +1,13 @@
-// Add floating hearts animation
+// Check if mobile device
+const isMobile = window.innerWidth <= 768;
+
+// Add floating hearts animation (fewer on mobile for performance)
 function createFloatingHeart() {
     const heartsContainer = document.querySelector('.hearts-background');
     const heart = document.createElement('div');
     heart.innerHTML = '❤️';
     heart.style.position = 'absolute';
-    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
+    heart.style.fontSize = (isMobile ? Math.random() * 20 + 15 : Math.random() * 30 + 20) + 'px';
     heart.style.left = Math.random() * 100 + '%';
     heart.style.opacity = Math.random() * 0.3 + 0.1;
     heart.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
@@ -17,11 +20,13 @@ function createFloatingHeart() {
     }, 20000);
 }
 
-// Create hearts periodically
-setInterval(createFloatingHeart, 2000);
+// Create hearts periodically (less frequent on mobile)
+const heartInterval = isMobile ? 3000 : 2000;
+setInterval(createFloatingHeart, heartInterval);
 
-// Initial hearts
-for (let i = 0; i < 5; i++) {
+// Initial hearts (fewer on mobile)
+const initialHearts = isMobile ? 3 : 5;
+for (let i = 0; i < initialHearts; i++) {
     setTimeout(createFloatingHeart, i * 400);
 }
 
